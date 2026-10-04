@@ -10,6 +10,7 @@ import { fetchCurrentUser } from './store/authSlice';
  * dashboards (and their chart library) unless they need them.
  */
 const Home = lazy(() => import('./pages/Home'));
+const MovieDetails = lazy(() => import('./pages/MovieDetails'));
 const Login = lazy(() => import('./pages/auth/Login'));
 const Register = lazy(() => import('./pages/auth/Register'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -27,6 +28,7 @@ export default function App() {
       <Routes>
         <Route element={<AppLayout />}>
           <Route index element={<Home />} />
+          <Route path="movies/:id" element={<MovieDetails />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
 
