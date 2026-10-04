@@ -2,6 +2,9 @@ const env = require('../config/env');
 
 const BREVO_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
 
+/** Seeded demo accounts and test fixtures use these domains; they have no real inboxes. */
+const UNDELIVERABLE_DOMAINS = new Set(['reelseat.dev', 'example.com', 'test.com']);
+
 /**
  * Messages "sent" while no provider is configured. Tests read OTPs from here,
  * and in local development the content is printed to the console instead.
@@ -25,7 +28,14 @@ const outbox = [];
  * }} message
  */
 async function sendEmail(message) {
-  if (!env.email.brevoApiKey) {
+  /**
+   * Demo and placeholder domains are never delivered: sending to mailboxes
+   * that do not exist produces bounces that damage the sender's reputation.
+   */
+  const domain = String(message.to).split('@')[1]?.toLowerCase();
+  const suppressed = UNDELIVERABLE_DOMAINS.has(domain);
+
+  if (!env.email.brevoApiKey || suppressed) {
     outbox.push(message);
     if (!env.isTest) {
       console.log(`[email:dev] to=${message.to} subject="${message.subject}"\n${message.text || ''}`);

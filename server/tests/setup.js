@@ -5,6 +5,10 @@
 process.env.NODE_ENV = 'test';
 process.env.JWT_SECRET = 'test-secret';
 process.env.RAZORPAY_WEBHOOK_SECRET = 'whsec_test';
+/** Never reach real providers from tests, even if a developer's .env has keys. */
+process.env.BREVO_API_KEY = '';
+process.env.RAZORPAY_KEY_ID = '';
+process.env.RAZORPAY_KEY_SECRET = '';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
