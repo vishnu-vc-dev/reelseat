@@ -6,7 +6,6 @@ import {
   Drawer,
   Form,
   InputNumber,
-  List,
   Modal,
   Popconfirm,
   Progress,
@@ -216,18 +215,32 @@ export default function ShowsTab() {
         onClose={() => setBookingsFor(null)}
         size="large"
       >
-        <List
+        <Table
+          size="small"
+          rowKey="_id"
           loading={bookings.loading}
           dataSource={bookings.data || []}
+          pagination={false}
           locale={{ emptyText: 'No bookings yet' }}
-          renderItem={(b) => (
-            <List.Item extra={b.checkedInAt ? <Tag color="purple">Admitted</Tag> : <Tag>Not arrived</Tag>}>
-              <List.Item.Meta
-                title={`${b.user?.name} · ${b.seats.join(', ')}`}
-                description={`${b.ticketCode} · ${formatINR(b.totalAmount)} · ${b.user?.email}`}
-              />
-            </List.Item>
-          )}
+          columns={[
+            {
+              title: 'Customer',
+              render: (_, b) => (
+                <span>
+                  {b.user?.name}
+                  <div className="muted">{b.user?.email}</div>
+                </span>
+              ),
+            },
+            { title: 'Seats', dataIndex: 'seats', render: (s) => s.join(', ') },
+            { title: 'Booking', dataIndex: 'ticketCode' },
+            { title: 'Paid', dataIndex: 'totalAmount', render: formatINR },
+            {
+              title: 'Gate',
+              dataIndex: 'checkedInAt',
+              render: (at) => (at ? <Tag color="purple">Admitted</Tag> : <Tag>Not arrived</Tag>),
+            },
+          ]}
         />
       </Drawer>
     </>

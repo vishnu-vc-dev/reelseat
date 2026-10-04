@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Alert, Button, Empty, List, Segmented, Skeleton, Tag, Typography } from 'antd';
+import { Alert, Button, Empty, Segmented, Skeleton, Tag, Typography } from 'antd';
 import { bookingApi } from '../api';
 import useAsync from '../hooks/useAsync';
 import Poster from '../components/Poster';
@@ -40,39 +40,28 @@ export default function MyBookings() {
       {bookings.loading && !bookings.data ? (
         <Skeleton active />
       ) : list.length ? (
-        <List
-          className="booking-list"
-          itemLayout="horizontal"
-          dataSource={list}
-          renderItem={(b) => (
-            <List.Item
-              className="booking-item"
-              onClick={() => navigate(`/bookings/${b._id}`)}
-              actions={[<Link key="view" to={`/bookings/${b._id}`}>View ticket</Link>]}
-            >
-              <List.Item.Meta
-                avatar={<Poster src={b.movie?.posterUrl} title={b.movie?.title} className="booking-thumb" />}
-                title={
-                  <span>
-                    {b.movie?.title}{' '}
-                    {b.status !== 'CONFIRMED' && <Tag color="orange">{b.status}</Tag>}
-                  </span>
-                }
-                description={
-                  <>
-                    <div>{formatDateTime(b.show?.startTime)}</div>
-                    <div>
-                      {b.theatre?.name}, {b.theatre?.city} · Seats {b.seats.join(', ')}
-                    </div>
-                    <div>
-                      {formatINR(b.totalAmount)} · {b.ticketCode}
-                    </div>
-                  </>
-                }
-              />
-            </List.Item>
-          )}
-        />
+        <ul className="booking-list">
+          {list.map((b) => (
+            <li key={b._id}>
+              <Link to={`/bookings/${b._id}`} className="booking-item">
+                <Poster src={b.movie?.posterUrl} title={b.movie?.title} className="booking-thumb" />
+                <div className="booking-item-body">
+                  <div className="booking-item-title">
+                    {b.movie?.title} {b.status !== 'CONFIRMED' && <Tag color="orange">{b.status}</Tag>}
+                  </div>
+                  <div>{formatDateTime(b.show?.startTime)}</div>
+                  <div className="muted">
+                    {b.theatre?.name}, {b.theatre?.city} · Seats {b.seats.join(', ')}
+                  </div>
+                  <div className="muted">
+                    {formatINR(b.totalAmount)} · {b.ticketCode}
+                  </div>
+                </div>
+                <span className="booking-item-action">View ticket ›</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       ) : (
         <Empty description={tab === 'upcoming' ? 'No upcoming bookings' : 'No past bookings'}>
           <Button type="primary" onClick={() => navigate('/')}>
