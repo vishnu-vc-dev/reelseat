@@ -1,24 +1,26 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Alert, Button, Card, Descriptions, Input, Result, Space, Tag } from 'antd';
-import { ScanOutlined } from '@ant-design/icons';
+import { CameraOutlined, ScanOutlined } from '@ant-design/icons';
+import QrScanner from '../../components/QrScanner';
 import { partnerApi } from '../../api';
 import { formatDateTime } from '../../utils/format';
 
 /**
- * Gate check-in. Works with a USB/Bluetooth barcode scanner (which types the
- * QR payload and presses Enter) or by typing the booking id manually.
+ * Gate check-in. Works with the device camera, a USB/Bluetooth barcode
+ * scanner (which types the QR payload and presses Enter) or a typed booking id.
  */
 export default function CheckInTab() {
   const [code, setCode] = useState('');
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [camera, setCamera] = useState(false);
   const inputRef = useRef(null);
 
-  const submit = async () => {
-    if (!code.trim()) return;
+  const checkIn = useCallback(async (value) => {
+    if (!value.trim()) return;
     setLoading(true);
     try {
-      const res = await partnerApi.checkIn(code.trim());
+      const res = await partnerApi.checkIn(value.trim());
       setResult({ ok: true, booking: res.data });
     } catch (err) {
       setResult({ ok: false, message: err.message, booking: err.details?.booking });
@@ -27,7 +29,9 @@ export default function CheckInTab() {
       setCode('');
       inputRef.current?.focus();
     }
-  };
+  }, []);
+
+  const submit = () => checkIn(code);
 
   const b = result?.booking;
 
@@ -48,6 +52,15 @@ export default function CheckInTab() {
           Admit
         </Button>
       </Space.Compact>
+      <Button
+        icon={<CameraOutlined />}
+        style={{ marginTop: 12 }}
+        type={camera ? 'default' : 'dashed'}
+        onClick={() => setCamera((on) => !on)}
+      >
+        {camera ? 'Stop camera' : 'Scan with camera'}
+      </Button>
+      {camera && <QrScanner onScan={checkIn} />}
 
       {result && (
         <Result

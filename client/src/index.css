@@ -986,3 +986,10 @@ img {
 .review-form {
   margin-bottom: 16px;
 }
+
+.qr-scanner {
+  max-width: 360px;
+  margin-top: 12px;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
