@@ -5,5 +5,8 @@ const router = require('express').Router();
  * app.js stays focused on cross-cutting middleware.
  */
 router.use('/auth', require('./auth.routes'));
+router.use('/movies', require('./movie.routes'));
+router.use('/theatres', require('./theatre.routes'));
+router.use('/admin', require('./admin.routes'));
 
 module.exports = router;

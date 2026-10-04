@@ -39,6 +39,24 @@ const protect = asyncHandler(async (req, res, next) => {
 });
 
 /**
+ * Like `protect`, but never rejects. Public endpoints use it to tailor the
+ * response (e.g. admins also see inactive movies) without requiring login.
+ */
+const optionalAuth = asyncHandler(async (req, res, next) => {
+  const token = extractToken(req);
+  if (token) {
+    try {
+      const payload = verifyToken(token);
+      const user = await User.findById(payload.sub);
+      if (user?.isActive) req.user = user;
+    } catch {
+      /** An invalid or expired token on a public route is simply treated as anonymous. */
+    }
+  }
+  next();
+});
+
+/**
  * Role-based guard. Must run after `protect`.
  * @param {...('user'|'partner'|'admin')} roles
  * @returns {import('express').RequestHandler}
@@ -51,4 +69,4 @@ const authorize =
     return next();
   };
 
-module.exports = { protect, authorize };
+module.exports = { protect, optionalAuth, authorize };
