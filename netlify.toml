@@ -1,0 +1,41 @@
+# Netlify build for the React client.
+#
+# /api/* is proxied to the Render API so that, from the browser's point of
+# view, the API is same-origin: the httpOnly auth cookie is first-party and
+# is not blocked by third-party cookie protections. Socket.IO cannot be
+# proxied by Netlify, so the client connects to Render directly using
+# VITE_SOCKET_URL (seat events need no cookie).
+#
+# After creating the Render service, replace API_ORIGIN below with its URL.
+
+[build]
+  base = "client"
+  command = "npm ci && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://bookmyshow-api.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# Single page app: every other route is handled by React Router.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
