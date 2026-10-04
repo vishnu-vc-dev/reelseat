@@ -47,10 +47,8 @@ async function createOrder(user, showId, seatIds) {
   if (sold.length) throw ApiError.conflict(`Already booked: ${sold.join(', ')}`, { seats: sold });
   await seatService.assertActiveHold(showId, user._id, seats);
 
-  await SeatHold.updateMany(
-    { show: showId, user: user._id, seat: { $in: seats } },
-    { expiresAt: new Date(Date.now() + CHECKOUT_HOLD_MINUTES * 60 * 1000) },
-  );
+  const holdExpiresAt = new Date(Date.now() + CHECKOUT_HOLD_MINUTES * 60 * 1000);
+  await SeatHold.updateMany({ show: showId, user: user._id, seat: { $in: seats } }, { expiresAt: holdExpiresAt });
 
   const convenienceFee = CONVENIENCE_FEE_PER_TICKET * seats.length;
   const totalAmount = total + convenienceFee;
@@ -84,6 +82,7 @@ async function createOrder(user, showId, seatIds) {
     keyId: payments.keyId,
     mock: order.provider === 'mock',
     prefill: { name: user.name, email: user.email },
+    holdExpiresAt,
   };
 }
 

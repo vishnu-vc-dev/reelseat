@@ -41,6 +41,7 @@ describe('Checkout and payments', () => {
     expect(res.body.data.amount).toBe(450 + 250 + 2 * 25);
     expect(res.body.data.order.amount).toBe((450 + 250 + 50) * 100);
     expect(res.body.data.mock).toBe(true);
+    expect(new Date(res.body.data.holdExpiresAt).getTime()).toBeGreaterThan(Date.now() + 9 * 60 * 1000);
 
     const booking = await Booking.findById(res.body.data.bookingId);
     expect(booking.status).toBe('PENDING');
