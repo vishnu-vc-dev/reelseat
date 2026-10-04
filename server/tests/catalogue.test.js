@@ -99,3 +99,12 @@ describe('Theatres', () => {
     expect(res.body.data.status).toBe('pending');
   });
 });
+
+describe('Movie poster URLs', () => {
+  test('accepts http(s) URLs and site-relative paths but not javascript: URLs', async () => {
+    const { agent: admin } = await loginAs('admin');
+    expect((await admin.post('/api/movies').send(movieBody({ posterUrl: '/posters/kaalam.svg' }))).status).toBe(201);
+    expect((await admin.post('/api/movies').send(movieBody({ posterUrl: 'javascript:alert(1)' }))).status).toBe(400);
+    expect((await admin.post('/api/movies').send(movieBody({ posterUrl: '//evil.example/x.png' }))).status).toBe(400);
+  });
+});

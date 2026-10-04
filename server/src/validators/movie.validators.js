@@ -9,6 +9,18 @@ const stringList = z
 
 const url = z.url('Must be a valid URL');
 
+/**
+ * Posters may be absolute http(s) URLs or paths served by the frontend itself
+ * (e.g. /posters/kaalam.svg for the bundled demo artwork).
+ */
+const imageUrl = z
+  .string()
+  .trim()
+  .refine(
+    (v) => /^https?:\/\/\S+$/i.test(v) || /^\/(?!\/)[\w./-]+$/.test(v),
+    'Must be an http(s) URL or a site-relative /path',
+  );
+
 const movieFields = {
   title: z.string().trim().min(1).max(120),
   description: z.string().trim().min(10).max(2000),
@@ -17,7 +29,7 @@ const movieFields = {
   languages: stringList,
   releaseDate: z.coerce.date(),
   certificate: z.enum(CERTIFICATES),
-  posterUrl: url,
+  posterUrl: imageUrl,
   trailerUrl: url.optional().or(z.literal('')),
   director: z.string().trim().max(80).optional(),
   cast: stringList,
