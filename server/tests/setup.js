@@ -4,6 +4,7 @@
  */
 process.env.NODE_ENV = 'test';
 process.env.JWT_SECRET = 'test-secret';
+process.env.RAZORPAY_WEBHOOK_SECRET = 'whsec_test';
 
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');

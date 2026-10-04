@@ -24,6 +24,16 @@ app.use(
   }),
 );
 app.use(compression());
+/**
+ * Razorpay webhooks are verified against the exact raw bytes, so this route
+ * must be registered before express.json() consumes and re-serialises the body.
+ */
+app.post(
+  '/api/payments/webhook',
+  express.raw({ type: 'application/json', limit: '100kb' }),
+  require('./controllers/payment.controller').webhook,
+);
+
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 app.use(cookieParser());

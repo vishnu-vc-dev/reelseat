@@ -48,6 +48,8 @@ showSchema.index({ theatre: 1, screen: 1, startTime: 1 });
 
 /** Total sellable seats in this show's layout. */
 showSchema.virtual('totalSeats').get(function totalSeats() {
+  /** The layout is absent when a query projects it out (e.g. populated into a booking). */
+  if (!this.seatLayout?.categories) return undefined;
   const rows = this.seatLayout.categories.reduce((n, c) => n + c.rows.length, 0);
   return rows * this.seatLayout.seatsPerRow;
 });
