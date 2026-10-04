@@ -3,11 +3,11 @@ const QRCode = require('qrcode');
 const env = require('../config/env');
 
 /**
- * Human friendly ticket reference printed on the ticket, e.g. "BMS-7F3A9C21".
+ * Human friendly ticket reference printed on the ticket, e.g. "RS-7F3A9C21".
  * Uses crypto randomness so codes cannot be guessed sequentially.
  */
 function generateTicketCode() {
-  return `BMS-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
+  return `RS-${crypto.randomBytes(4).toString('hex').toUpperCase()}`;
 }
 
 /**

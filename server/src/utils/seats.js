@@ -3,7 +3,7 @@ const ApiError = require('./ApiError');
 /**
  * Layout used when a partner does not configure one.
  * Categories are listed from the back of the hall to the front; the client
- * renders them top-down with the screen at the bottom, BookMyShow style.
+ * renders them top-down with the screen at the bottom, as on popular ticketing apps.
  */
 const DEFAULT_LAYOUT = Object.freeze({
   seatsPerRow: 12,

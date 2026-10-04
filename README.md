@@ -1,6 +1,7 @@
-# BookMyShow — MERN Movie Ticket Booking Platform
+# ReelSeat — MERN Movie Ticket Booking Platform
 
-A full-stack movie ticket booking platform built with **MongoDB, Express, React and Node.js**.
+**ReelSeat** is a full-stack movie ticket booking platform built with **MongoDB, Express, React and Node.js**,
+inspired by the user journeys of popular Indian ticketing apps such as BookMyShow.
 Customers browse movies, pick a showtime, choose seats on a live seat map and pay with
 **Razorpay**; theatre partners list their cinemas and schedule shows; administrators curate
 the catalogue and approve theatres.
@@ -95,7 +96,7 @@ sequenceDiagram
 ## Project structure
 
 ```
-bookmyshow/
+reelseat/
 ├── server/                    Express API
 │   ├── src/
 │   │   ├── config/            env + MongoDB connection
@@ -160,9 +161,9 @@ exercised locally. Without a Brevo key, emails (OTP codes, tickets) are printed 
 
 | Role | Email | Password |
 | --- | --- | --- |
-| Administrator | admin@bookmyshow.dev | Admin@123 |
-| Theatre partner | partner@bookmyshow.dev | Partner@123 |
-| Customer | user@bookmyshow.dev | User@1234 |
+| Administrator | admin@reelseat.dev | Admin@123 |
+| Theatre partner | partner@reelseat.dev | Partner@123 |
+| Customer | user@reelseat.dev | User@1234 |
 
 Razorpay test card: `4111 1111 1111 1111`, any future expiry, any CVV; or UPI id `success@razorpay`.
 

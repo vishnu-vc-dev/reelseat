@@ -9,7 +9,7 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 (async () => {
   const mongod = await MongoMemoryServer.create();
-  process.env.MONGO_URI = mongod.getUri('bookmyshow');
+  process.env.MONGO_URI = mongod.getUri('reelseat');
   console.log('In-memory MongoDB started');
 
   const mongoose = require('mongoose');

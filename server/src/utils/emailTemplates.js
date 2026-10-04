@@ -18,7 +18,7 @@ function layout(title, body) {
   return `<!doctype html><html><body style="margin:0;background:#f4f4f6;font-family:Arial,Helvetica,sans-serif;color:#222">
   <div style="max-width:520px;margin:24px auto;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e6e6ea">
     <div style="background:#1f2533;color:#fff;padding:16px 24px;font-size:20px;font-weight:bold">
-      book<span style="color:${BRAND}">my</span>show
+      reel<span style="color:${BRAND}">seat</span>
     </div>
     <div style="padding:24px">
       <h2 style="margin:0 0 16px;font-size:20px">${esc(title)}</h2>

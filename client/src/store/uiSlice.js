@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const CITY_KEY = 'bms.city';
+const CITY_KEY = 'reelseat.city';
 
 /** localStorage can throw in private mode; the app must still work without it. */
 function readCity() {
@@ -13,7 +13,7 @@ function readCity() {
 
 /**
  * Cross-page UI preferences. The selected city filters showtimes the same
- * way BookMyShow scopes everything to a location.
+ * way ticketing apps scope everything to a location.
  */
 const uiSlice = createSlice({
   name: 'ui',

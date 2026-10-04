@@ -3,7 +3,7 @@
 # are prompted for in the Render dashboard and never stored in git.
 services:
   - type: web
-    name: bookmyshow-api
+    name: reelseat-api
     runtime: node
     plan: free
     region: singapore
@@ -42,4 +42,4 @@ services:
       - key: EMAIL_FROM
         sync: false
       - key: EMAIL_FROM_NAME
-        value: BookMyShow
+        value: ReelSeat

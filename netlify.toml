@@ -18,7 +18,7 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://bookmyshow-api.onrender.com/api/:splat"
+  to = "https://reelseat-api.onrender.com/api/:splat"
   status = 200
   force = true
 

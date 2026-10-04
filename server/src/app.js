@@ -52,7 +52,7 @@ app.get('/api/health', (req, res) => {
 /** Interactive API documentation (OpenAPI 3) and the raw spec for tooling such as Postman. */
 const openapi = require('./docs/openapi');
 app.get('/api/docs.json', (req, res) => res.json(openapi));
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapi, { customSiteTitle: 'BookMyShow API docs' }));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapi, { customSiteTitle: 'ReelSeat API docs' }));
 
 /** Registers booking side effects (ticket emails) on the booking service's event hooks. */
 require('./services/notification.service');

@@ -65,7 +65,7 @@ describe('Checkout and payments', () => {
 
     expect(res.status).toBe(200);
     expect(res.body.data.status).toBe('CONFIRMED');
-    expect(res.body.data.ticketCode).toMatch(/^BMS-[A-F0-9]{8}$/);
+    expect(res.body.data.ticketCode).toMatch(/^RS-[A-F0-9]{8}$/);
     expect((await Show.findById(show._id)).bookedSeats).toEqual(['B1', 'B2']);
     expect(await SeatHold.countDocuments()).toBe(0);
 

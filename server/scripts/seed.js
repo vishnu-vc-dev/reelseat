@@ -221,7 +221,7 @@ if (require.main === module) {
     console.log(`Seeding ${mongoose.connection.name}...`);
     await seed();
     await mongoose.disconnect();
-    console.log('Done. Demo logins: admin@bookmyshow.dev / Admin@123, partner@bookmyshow.dev / Partner@123, user@bookmyshow.dev / User@1234');
+    console.log('Done. Demo logins: admin@reelseat.dev / Admin@123, partner@reelseat.dev / Partner@123, user@reelseat.dev / User@1234');
   })().catch((err) => {
     console.error(err);
     process.exit(1);

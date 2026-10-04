@@ -18,10 +18,10 @@ const secured = [{ cookieAuth: [] }, { bearerAuth: [] }];
 module.exports = {
   openapi: '3.0.3',
   info: {
-    title: 'BookMyShow API',
+    title: 'ReelSeat API',
     version: '1.0.0',
     description:
-      'REST API for the BookMyShow movie ticket booking platform. Authentication uses an httpOnly `token` cookie ' +
+      'REST API for the ReelSeat movie ticket booking platform. Authentication uses an httpOnly `token` cookie ' +
       'set by `/auth/login` (a `Bearer` token is also accepted). All responses use the envelope ' +
       '`{ success, message?, data?, meta?, details? }`.',
   },
@@ -144,7 +144,7 @@ module.exports = {
           convenienceFee: { type: 'number' },
           totalAmount: { type: 'number' },
           status: { type: 'string', enum: ['PENDING', 'PROCESSING', 'CONFIRMED', 'FAILED', 'REFUNDED', 'CANCELLED'] },
-          ticketCode: { type: 'string', example: 'BMS-7F3A9C21' },
+          ticketCode: { type: 'string', example: 'RS-7F3A9C21' },
           qrCode: { type: 'string', description: 'PNG data URL (confirmed bookings only)' },
         },
       },

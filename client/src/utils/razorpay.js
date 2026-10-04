@@ -42,7 +42,7 @@ export async function openRazorpayCheckout({ keyId, order, prefill, description 
       order_id: order.id,
       amount: order.amount,
       currency: order.currency,
-      name: 'BookMyShow',
+      name: 'ReelSeat',
       description,
       prefill,
       theme: { color: '#f84464' },

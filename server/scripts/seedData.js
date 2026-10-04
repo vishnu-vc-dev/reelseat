@@ -5,11 +5,11 @@
  */
 
 const users = [
-  { name: 'Platform Admin', email: 'admin@bookmyshow.dev', password: 'Admin@123', role: 'admin' },
-  { name: 'Ravi Kumar (Partner)', email: 'partner@bookmyshow.dev', password: 'Partner@123', role: 'partner' },
-  { name: 'Meera Iyer (Partner)', email: 'partner2@bookmyshow.dev', password: 'Partner@123', role: 'partner' },
-  { name: 'Ananya Sharma', email: 'user@bookmyshow.dev', password: 'User@1234', role: 'user' },
-  { name: 'Karthik Reddy', email: 'karthik@bookmyshow.dev', password: 'User@1234', role: 'user' },
+  { name: 'Platform Admin', email: 'admin@reelseat.dev', password: 'Admin@123', role: 'admin' },
+  { name: 'Ravi Kumar (Partner)', email: 'partner@reelseat.dev', password: 'Partner@123', role: 'partner' },
+  { name: 'Meera Iyer (Partner)', email: 'partner2@reelseat.dev', password: 'Partner@123', role: 'partner' },
+  { name: 'Ananya Sharma', email: 'user@reelseat.dev', password: 'User@1234', role: 'user' },
+  { name: 'Karthik Reddy', email: 'karthik@reelseat.dev', password: 'User@1234', role: 'user' },
 ];
 
 /** `releaseOffsetDays` is relative to today so "now showing" vs "upcoming" stays correct over time. */

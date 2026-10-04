@@ -24,8 +24,8 @@ const env = {
   },
   email: {
     brevoApiKey: process.env.BREVO_API_KEY,
-    from: process.env.EMAIL_FROM || 'no-reply@bookmyshow.local',
-    fromName: process.env.EMAIL_FROM_NAME || 'BookMyShow',
+    from: process.env.EMAIL_FROM || 'no-reply@reelseat.local',
+    fromName: process.env.EMAIL_FROM_NAME || 'ReelSeat',
   },
   ticketSecret: process.env.TICKET_SECRET || process.env.JWT_SECRET || 'dev-ticket-secret',
 };

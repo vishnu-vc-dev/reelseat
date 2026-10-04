@@ -1,7 +1,7 @@
 {
-  "name": "bookmyshow-server",
+  "name": "reelseat-server",
   "version": "1.0.0",
-  "description": "REST API for the BookMyShow MERN capstone",
+  "description": "REST API for ReelSeat, a MERN movie ticket booking platform",
   "main": "src/server.js",
   "private": true,
   "scripts": {

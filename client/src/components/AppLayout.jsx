@@ -63,8 +63,8 @@ export default function AppLayout() {
   return (
     <Layout className="app-layout">
       <Header className="app-header">
-        <Link to="/" className="brand" aria-label="BookMyShow home">
-          book<span>my</span>show
+        <Link to="/" className="brand" aria-label="ReelSeat home">
+          reel<span>seat</span>
         </Link>
 
         <Input.Search
@@ -114,7 +114,7 @@ export default function AppLayout() {
 
       <Footer className="app-footer">
         <div>
-          book<span>my</span>show · Movie ticket booking platform built with MongoDB, Express, React and Node.js
+          reel<span>seat</span> · Movie ticket booking platform built with MongoDB, Express, React and Node.js
         </div>
         <div className="muted">Demo project — payments run in test mode. © {YEAR}</div>
       </Footer>

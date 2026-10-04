@@ -13,7 +13,7 @@ import { dayjs, formatDate, formatDuration, formatINR, formatTime, ist, istDateS
 const DAYS_AHEAD = 7;
 
 /**
- * Colour-codes a showtime by remaining seats, like BookMyShow:
+ * Colour-codes a showtime by remaining seats, like popular ticketing apps:
  * green = plenty, amber = filling fast, red = almost full.
  */
 function availabilityClass(show) {

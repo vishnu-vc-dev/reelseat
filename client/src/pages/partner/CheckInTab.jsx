@@ -43,7 +43,7 @@ export default function CheckInTab() {
           size="large"
           autoFocus
           prefix={<ScanOutlined />}
-          placeholder="Scan QR or type booking id (e.g. BMS-1A2B3C4D)"
+          placeholder="Scan QR or type booking id (e.g. RS-1A2B3C4D)"
           value={code}
           onChange={(e) => setCode(e.target.value)}
           onPressEnter={submit}

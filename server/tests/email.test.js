@@ -104,7 +104,7 @@ describe('Ticket email', () => {
     await flush();
     const mail = outbox.find((m) => m.to === user.email);
     expect(mail.subject).toMatch(/Booking confirmed: Interstellar Drift/);
-    expect(mail.attachments[0].name).toMatch(/^BMS-.+\.png$/);
+    expect(mail.attachments[0].name).toMatch(/^RS-.+\.png$/);
     expect((await Booking.findById(body.data.bookingId)).emailSentAt).toBeInstanceOf(Date);
   });
 });
