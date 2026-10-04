@@ -10,9 +10,10 @@ Built as the applied capstone project for the Scaler Neovarsity – Woolf MSc in
 
 | | |
 | --- | --- |
-| **Live app** | _added after deployment_ |
-| **API health** | _added after deployment_ |
-| **API docs** | `/api/docs` (Swagger UI) · `/api/docs.json` (OpenAPI 3) |
+| **Live app** | https://reelseat.netlify.app |
+| **API** | https://reelseat-api.onrender.com/api/health |
+| **API docs** | https://reelseat-api.onrender.com/api/docs/ (Swagger UI) |
+| **Repository** | https://github.com/vishnu-vc-dev/reelseat |
 | **Stack** | React 19 · Vite · Redux Toolkit · Ant Design · Node 22 · Express 4 · MongoDB / Mongoose · Socket.IO · Razorpay · Brevo |
 
 ---
@@ -224,6 +225,7 @@ ticket emails, dashboards, check-in and security headers / rate limits / injecti
 | Payments | Razorpay test mode | Webhook URL `https://<render-app>/api/payments/webhook`, events `payment.captured`, `order.paid`, `payment.failed` |
 
 The free Render instance sleeps after inactivity; the first request after a pause can take ~50 seconds.
+Open the API health link once to wake it before a demo.
 
 ## License
 
