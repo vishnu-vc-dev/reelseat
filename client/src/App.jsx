@@ -15,6 +15,8 @@ const MovieDetails = lazy(() => import('./pages/MovieDetails'));
 const SeatSelection = lazy(() => import('./pages/SeatSelection'));
 const BookingDetails = lazy(() => import('./pages/BookingDetails'));
 const MyBookings = lazy(() => import('./pages/MyBookings'));
+const Profile = lazy(() => import('./pages/Profile'));
+const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
 const Login = lazy(() => import('./pages/auth/Login'));
 const Register = lazy(() => import('./pages/auth/Register'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -35,11 +37,13 @@ export default function App() {
           <Route path="movies/:id" element={<MovieDetails />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="shows/:id" element={<SeatSelection />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="bookings" element={<MyBookings />} />
             <Route path="bookings/:id" element={<BookingDetails />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />
