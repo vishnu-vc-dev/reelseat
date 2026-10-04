@@ -22,6 +22,14 @@ function onBookingConfirmed(fn) {
   confirmedListeners.push(fn);
 }
 
+/** In-flight listener promises, tracked so tests and graceful shutdown can wait for them. */
+const pendingSideEffects = new Set();
+
+/** Resolves once every in-flight confirmation side effect has finished. */
+function settleSideEffects() {
+  return Promise.allSettled([...pendingSideEffects]);
+}
+
 /**
  * Step 1 of checkout: validate the held seats, compute the price on the
  * server and open a gateway order. A PENDING booking is stored so the
@@ -135,9 +143,11 @@ async function confirmBooking({ orderId, paymentId }) {
 
   /** Side effects must never fail the confirmation itself. */
   for (const listener of confirmedListeners) {
-    Promise.resolve()
+    const task = Promise.resolve()
       .then(() => listener(claimed))
-      .catch((err) => console.error('Booking confirmation listener failed:', err.message));
+      .catch((err) => console.error('Booking confirmation listener failed:', err.message))
+      .finally(() => pendingSideEffects.delete(task));
+    pendingSideEffects.add(task);
   }
 
   return claimed;
@@ -164,4 +174,5 @@ module.exports = {
   confirmBooking,
   failBooking,
   onBookingConfirmed,
+  settleSideEffects,
 };

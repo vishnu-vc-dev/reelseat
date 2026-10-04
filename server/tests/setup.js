@@ -17,6 +17,8 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
+  /** Let fire-and-forget work (ticket emails) finish before wiping the database. */
+  await require('../src/services/booking.service').settleSideEffects();
   const collections = await mongoose.connection.db.collections();
   await Promise.all(collections.map((c) => c.deleteMany({})));
 });

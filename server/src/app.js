@@ -43,6 +43,9 @@ app.get('/api/health', (req, res) => {
   res.json({ success: true, status: 'ok', uptime: process.uptime() });
 });
 
+/** Registers booking side effects (ticket emails) on the booking service's event hooks. */
+require('./services/notification.service');
+
 app.use('/api', require('./routes'));
 
 app.use(notFound);

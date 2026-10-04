@@ -16,4 +16,21 @@ const login = z.object({
   password: z.string().min(1, 'Password is required'),
 });
 
-module.exports = { register, login };
+const forgotPassword = z.object({ email });
+
+const resetPassword = z.object({
+  email,
+  otp: z.string().trim().regex(/^\d{6}$/, 'Enter the 6 digit code'),
+  password,
+});
+
+const changePassword = z.object({
+  currentPassword: z.string().min(1, 'Current password is required'),
+  newPassword: password,
+});
+
+const updateProfile = z.object({
+  name: z.string().trim().min(2).max(60),
+});
+
+module.exports = { register, login, forgotPassword, resetPassword, changePassword, updateProfile };
