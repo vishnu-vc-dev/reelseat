@@ -1,0 +1,166 @@
+/**
+ * Global styles. Component-level styling uses Ant Design tokens; this file
+ * covers layout, the brand header and custom widgets (seat map, ticket).
+ */
+:root {
+  --brand: #f84464;
+  --ink: #1f2533;
+  --ink-2: #333545;
+  --muted: #6b6f80;
+  --bg: #f5f5fa;
+  --card: #ffffff;
+  --border: #e6e6ef;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.section {
+  padding-block: 24px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.page-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+/** ---------- Header ---------- */
+.app-layout {
+  min-height: 100vh;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  height: 64px;
+}
+
+.brand {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.brand span,
+.app-footer span {
+  color: var(--brand);
+}
+
+.brand:hover {
+  color: #fff;
+}
+
+.header-search {
+  flex: 1;
+  max-width: 520px;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.city-select .ant-select-selector,
+.city-select .ant-select-selection-item,
+.city-select .ant-select-selection-placeholder,
+.city-select .ant-select-content,
+.city-select .ant-select-placeholder,
+.city-select .ant-select-arrow,
+.city-select .ant-select-suffix {
+  color: #fff !important;
+}
+
+.account-button {
+  color: #fff !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-content {
+  min-height: calc(100vh - 64px - 90px);
+}
+
+.app-footer {
+  color: #c9cbd6;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.app-footer .muted {
+  color: #8a8fa3;
+}
+
+@media (max-width: 720px) {
+  .header-search {
+    display: none;
+  }
+
+  .account-name {
+    display: none;
+  }
+}
+
+/** ---------- Auth ---------- */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  padding: 48px 16px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: -8px 0 16px;
+}
+
+.auth-footer {
+  text-align: center;
+  margin: 20px 0 0;
+}
