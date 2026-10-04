@@ -70,7 +70,7 @@ export default function Home() {
         ))}
       </div>
 
-      {movies.error && <Alert type="error" showIcon message={movies.error.message} style={{ marginBottom: 16 }} />}
+      {movies.error && <Alert type="error" showIcon title={movies.error.message} style={{ marginBottom: 16 }} />}
 
       {movies.loading && !movies.data ? (
         <div className="movie-grid">

@@ -138,7 +138,7 @@ export default function MovieDetails() {
                 </span>
               </div>
 
-              {shows.error && <Alert type="error" showIcon message={shows.error.message} />}
+              {shows.error && <Alert type="error" showIcon title={shows.error.message} />}
               {shows.loading && !shows.data ? (
                 <Skeleton active />
               ) : theatres.length ? (

@@ -37,7 +37,7 @@ export default function Register() {
 
   return (
     <AuthCard title="Create your account" subtitle="It takes less than a minute.">
-      {error && <Alert type="error" message={error} showIcon style={{ marginBottom: 16 }} />}
+      {error && <Alert type="error" title={error} showIcon style={{ marginBottom: 16 }} />}
       <Form layout="vertical" onFinish={onFinish} requiredMark={false} initialValues={{ role: 'user' }}>
         <Form.Item name="name" label="Full name" rules={[{ required: true, min: 2, message: 'Enter your name' }]}>
           <Input prefix={<UserOutlined />} placeholder="Your name" autoComplete="name" />

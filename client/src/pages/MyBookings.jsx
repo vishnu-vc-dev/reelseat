@@ -36,7 +36,7 @@ export default function MyBookings() {
         />
       </div>
 
-      {bookings.error && <Alert type="error" showIcon message={bookings.error.message} />}
+      {bookings.error && <Alert type="error" showIcon title={bookings.error.message} />}
       {bookings.loading && !bookings.data ? (
         <Skeleton active />
       ) : list.length ? (

@@ -33,7 +33,7 @@ export default function Login() {
 
   return (
     <AuthCard title="Sign in" subtitle="Book tickets, manage your theatres or run the platform.">
-      {error && <Alert type="error" message={error} showIcon style={{ marginBottom: 16 }} />}
+      {error && <Alert type="error" title={error} showIcon style={{ marginBottom: 16 }} />}
       <Form layout="vertical" onFinish={onFinish} requiredMark={false} autoComplete="on">
         <Form.Item name="email" label="Email" rules={[{ required: true, type: 'email', message: 'Enter a valid email' }]}>
           <Input prefix={<MailOutlined />} placeholder="you@example.com" autoComplete="email" />

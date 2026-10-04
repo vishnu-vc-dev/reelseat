@@ -292,7 +292,7 @@ export default function SeatSelection() {
               showIcon
               icon={<ClockCircleOutlined />}
               style={{ marginBottom: 16 }}
-              message={
+              title={
                 <span>
                   Seats held for you for <Countdown until={hold.expiresAt} onExpire={onHoldExpired} />
                 </span>

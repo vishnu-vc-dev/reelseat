@@ -4,7 +4,7 @@ import { Spin } from 'antd';
 export default function PageLoader({ tip = 'Loading…' }) {
   return (
     <div className="page-loader">
-      <Spin size="large" tip={tip}>
+      <Spin size="large" description={tip}>
         <div style={{ padding: 40 }} />
       </Spin>
     </div>

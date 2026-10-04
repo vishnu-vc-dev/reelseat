@@ -34,7 +34,7 @@ export default function BookingDetails() {
           showIcon
           className="no-print"
           style={{ marginBottom: 16 }}
-          message="This booking was refunded"
+          title="This booking was refunded"
           description={b.failureReason}
         />
       )}

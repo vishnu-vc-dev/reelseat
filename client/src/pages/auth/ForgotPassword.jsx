@@ -50,7 +50,7 @@ export default function ForgotPassword() {
   return (
     <AuthCard title="Reset your password">
       <Steps size="small" current={step} items={[{ title: 'Email' }, { title: 'New password' }]} style={{ marginBottom: 24 }} />
-      {error && <Alert type="error" message={error} showIcon style={{ marginBottom: 16 }} />}
+      {error && <Alert type="error" title={error} showIcon style={{ marginBottom: 16 }} />}
 
       {step === 0 ? (
         <Form layout="vertical" onFinish={requestCode} requiredMark={false}>
@@ -67,7 +67,7 @@ export default function ForgotPassword() {
             type="info"
             showIcon
             style={{ marginBottom: 16 }}
-            message={`If ${email} is registered, a 6-digit code is on its way. It expires in 10 minutes.`}
+            title={`If ${email} is registered, a 6-digit code is on its way. It expires in 10 minutes.`}
           />
           <Form.Item name="otp" label="Reset code" rules={[{ required: true, pattern: /^\d{6}$/, message: 'Enter the 6 digit code' }]}>
             <Input prefix={<NumberOutlined />} placeholder="123456" inputMode="numeric" maxLength={6} autoComplete="one-time-code" />
