@@ -17,6 +17,8 @@ const Theatre = require('../src/models/Theatre');
 const Show = require('../src/models/Show');
 const Booking = require('../src/models/Booking');
 const SeatHold = require('../src/models/SeatHold');
+const Review = require('../src/models/Review');
+const { refreshSummary } = require('../src/services/review.service');
 const { DEFAULT_LAYOUT, priceSeats } = require('../src/utils/seats');
 const { generateTicketCode } = require('../src/services/ticket.service');
 const { CONVENIENCE_FEE_PER_TICKET } = require('../src/services/booking.service');
@@ -53,8 +55,8 @@ function layoutFor(index) {
  * @param {{ log?: (msg: string) => void }} [options]
  */
 async function seed({ log = console.log } = {}) {
-  await Promise.all([User, Movie, Theatre, Show, Booking, SeatHold].map((M) => M.deleteMany({})));
-  await Promise.all([User, Movie, Theatre, Show, Booking, SeatHold].map((M) => M.syncIndexes()));
+  await Promise.all([User, Movie, Theatre, Show, Booking, SeatHold, Review].map((M) => M.deleteMany({})));
+  await Promise.all([User, Movie, Theatre, Show, Booking, SeatHold, Review].map((M) => M.syncIndexes()));
 
   /** Users are created one by one so the bcrypt pre-save hook runs. */
   const users = [];
@@ -162,9 +164,48 @@ async function seed({ log = console.log } = {}) {
     makeBooking(show, demoCustomer, 2, new Date()),
   );
 
+  /**
+   * Yesterday's evening shows that every demo customer attended. Attendance
+   * is what unlocks writing a review, so the demo starts with real ratings
+   * and the demo customer can review these movies straight away.
+   */
+  const approvedTheatres = theatres.filter((t) => t.status === 'approved');
+  const pastShows = await Show.insertMany(
+    nowShowing.slice(0, 6).map((movie, i) => {
+      const theatre = approvedTheatres[i % approvedTheatres.length];
+      const startTime = new Date(`${istDate(-1)}T${i % 2 ? '18:30' : '21:30'}:00+05:30`);
+      return {
+        movie: movie._id,
+        theatre: theatre._id,
+        screen: 1,
+        startTime,
+        endTime: new Date(startTime.getTime() + (movie.durationMinutes + CLEANING_BUFFER_MINUTES) * 60 * 1000),
+        language: movie.languages[0],
+        format: '2D',
+        seatLayout: layoutFor(i),
+      };
+    }),
+  );
+  pastShows.forEach((show) => customers.forEach((c) => makeBooking(show, c, 2, new Date(Date.now() - 2 * DAY_MS))));
+
   await Booking.insertMany(bookings);
-  await Promise.all(createdShows.map((s) => Show.updateOne({ _id: s._id }, { bookedSeats: s.bookedSeats })));
+  await Promise.all(
+    [...createdShows, ...pastShows].map((s) => Show.updateOne({ _id: s._id }, { bookedSeats: s.bookedSeats })),
+  );
   log(`bookings: ${bookings.length}`);
+
+  /** Reviews from the attendees, leaving the first movie unreviewed by the demo customer. */
+  const reviews = [];
+  pastShows.forEach((show, i) =>
+    customers.forEach((customer, j) => {
+      if (i === 0 && j === 0) return;
+      const sample = data.reviews[(i * customers.length + j) % data.reviews.length];
+      reviews.push({ movie: show.movie, user: customer._id, rating: sample.rating, comment: sample.comment });
+    }),
+  );
+  await Review.insertMany(reviews);
+  await Promise.all(pastShows.map((s) => refreshSummary(s.movie)));
+  log(`reviews: ${reviews.length}`);
 
   return { users: users.length, movies: movies.length, theatres: theatres.length, shows: createdShows.length };
 }

@@ -257,4 +257,16 @@ const theatres = [
 /** Daily start times in IST (HH:mm). Spaced so even the longest film plus cleaning fits. */
 const SHOW_TIMES = ['10:00', '13:30', '17:00', '20:45'];
 
-module.exports = { users, movies, theatres, SHOW_TIMES };
+/** Sample review texts cycled across the seeded attendees. */
+const reviews = [
+  { rating: 5, comment: 'Edge-of-the-seat from start to finish. The interval twist got the whole hall gasping.' },
+  { rating: 4, comment: 'Gorgeous visuals and a great background score. Second half drags a little.' },
+  { rating: 5, comment: 'Watched it in IMAX — absolutely worth the extra money.' },
+  { rating: 3, comment: 'Decent one-time watch. Lead performances are good, the story is predictable.' },
+  { rating: 4, comment: 'Took my family along and everyone enjoyed it. Clean, fun entertainment.' },
+  { rating: 2, comment: 'Too long and too loud. A few good scenes but it never comes together.' },
+  { rating: 5, comment: 'Best film I have seen this year. Already planning a second viewing.' },
+  { rating: 4, comment: 'Smart writing, strong climax. The recliners at this theatre made it even better.' },
+];
+
+module.exports = { users, movies, theatres, SHOW_TIMES, reviews };

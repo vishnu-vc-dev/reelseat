@@ -21,6 +21,9 @@ const movieSchema = new mongoose.Schema(
     cast: { type: [String], default: [] },
     /** Inactive movies are hidden from customers but kept for booking history. */
     isActive: { type: Boolean, default: true },
+    /** Denormalised review summary, recomputed whenever a review changes, so listings need no aggregation. */
+    ratingAverage: { type: Number, default: 0 },
+    ratingCount: { type: Number, default: 0 },
   },
   { timestamps: true },
 );
