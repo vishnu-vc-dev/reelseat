@@ -1,5 +1,10 @@
 require('dotenv').config({ quiet: true });
 
+/**
+ * Centralised access to environment variables.
+ * Every other module reads configuration from here instead of `process.env`,
+ * so defaults and production guards live in one place.
+ */
 const env = {
   nodeEnv: process.env.NODE_ENV || 'development',
   port: Number(process.env.PORT) || 8080,

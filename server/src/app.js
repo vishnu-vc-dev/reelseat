@@ -7,8 +7,14 @@ const morgan = require('morgan');
 const env = require('./config/env');
 const { notFound, errorHandler } = require('./middleware/error');
 
+/**
+ * Express application.
+ * Kept separate from the HTTP server (server.js) so tests can mount it with
+ * supertest without opening a port.
+ */
 const app = express();
 
+/** Behind Render's proxy the real client IP arrives in X-Forwarded-For; rate limiting depends on it. */
 if (env.trustProxy) app.set('trust proxy', env.trustProxy);
 
 app.use(

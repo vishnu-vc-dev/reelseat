@@ -1,4 +1,14 @@
+/**
+ * Operational error carrying an HTTP status code.
+ * Throw it from controllers/services; the global error handler turns it into
+ * a consistent `{ success: false, message, details? }` JSON response.
+ */
 class ApiError extends Error {
+  /**
+   * @param {number} statusCode HTTP status to respond with
+   * @param {string} message    Human readable message, safe to show to clients
+   * @param {unknown} [details] Optional structured payload (e.g. validation errors)
+   */
   constructor(statusCode, message, details) {
     super(message);
     this.statusCode = statusCode;

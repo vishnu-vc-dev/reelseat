@@ -4,6 +4,10 @@ const env = require('./config/env');
 const { connectDB } = require('./config/db');
 const app = require('./app');
 
+/**
+ * Boots the API: connects to MongoDB first, then starts listening.
+ * Failing fast on a bad connection string beats serving 500s later.
+ */
 async function start() {
   await connectDB(env.mongoUri);
 
