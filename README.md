@@ -25,10 +25,12 @@ Built as the applied capstone project for the Scaler Neovarsity – Woolf MSc in
   confirmation is idempotent (browser callback and webhook can both arrive) and customers are refunded automatically
   if seats are lost between payment and confirmation.
 - **Signed e-tickets** — QR codes carry an HMAC-signed booking id; partners admit each ticket exactly once at the gate.
+- **Cancellations and refunds** — tiered refund policy (100% / 75%), atomic status change so a refund can never be issued twice.
+- **Verified reviews** — only customers who attended a show can rate the movie; ratings are denormalised for fast listings.
 - **Role-based workflows** — customer, theatre partner (with admin approval) and administrator dashboards with analytics.
 - **Security** — bcrypt (12 rounds), httpOnly JWT cookie, zod validation on every route, helmet, tiered rate limits,
   NoSQL-operator sanitisation, OTP password reset with attempt limits.
-- **Tested** — 50+ API tests (Jest + Supertest + in-memory MongoDB) run in GitHub Actions on every push.
+- **Tested** — 60+ API tests (Jest + Supertest + in-memory MongoDB) run in GitHub Actions on every push.
 
 ## Features by role
 
@@ -38,7 +40,8 @@ Built as the applied capstone project for the Scaler Neovarsity – Woolf MSc in
 | Search, filter by genre / language, now showing & coming soon | Schedule shows with screen, format, language and price tiers | Approve or block theatres with a reason |
 | City-aware showtimes for the next 7 days | Overlap detection per screen; re-price after sales | Activate / deactivate users |
 | Live seat map, 5-minute seat hold with countdown | Revenue, tickets and occupancy dashboard | Platform KPIs, revenue trend, top movies |
-| Razorpay checkout, e-ticket with QR, email confirmation | Bookings per show, QR / code check-in | |
+| Razorpay checkout, e-ticket with QR, email confirmation | Bookings per show, camera QR / code check-in | |
+| Cancel with refund, rate & review watched movies | | |
 
 ## Architecture
 
@@ -96,10 +99,10 @@ bookmyshow/
 ├── server/                    Express API
 │   ├── src/
 │   │   ├── config/            env + MongoDB connection
-│   │   ├── models/            User, Movie, Theatre, Show, SeatHold, Booking
+│   │   ├── models/            User, Movie, Theatre, Show, SeatHold, Booking, Review
 │   │   ├── validators/        zod schemas per resource
 │   │   ├── middleware/        auth (JWT + roles), validation, security, errors
-│   │   ├── services/          seats, booking, payment, ticket, email, analytics
+│   │   ├── services/          seats, booking, payment, cancellation, review, ticket, email, analytics
 │   │   ├── controllers/       thin HTTP handlers
 │   │   ├── routes/            REST routers mounted under /api
 │   │   ├── sockets/           Socket.IO rooms per show
@@ -188,10 +191,11 @@ All endpoints are prefixed with `/api`. 🔒 = login required.
 | --- | --- |
 | Auth | `POST /auth/register` · `POST /auth/login` · `POST /auth/logout` · `GET/PATCH /auth/me` 🔒 · `PATCH /auth/password` 🔒 · `POST /auth/forgot-password` · `POST /auth/reset-password` |
 | Movies | `GET /movies` · `GET /movies/filters` · `GET /movies/:id` · `POST/PATCH/DELETE /movies/:id` 🔒 admin |
+| Reviews | `GET /movies/:id/reviews` · `PUT/DELETE /movies/:id/reviews` 🔒 (watched the movie) |
 | Theatres | `GET /theatres/cities` · `GET /theatres/mine` · `POST/PATCH/DELETE /theatres/:id` 🔒 partner |
 | Shows | `GET /shows/movie/:movieId?date&city` · `GET /shows/:id` · `GET /shows/:id/seats` · `POST/DELETE /shows/:id/hold` 🔒 · `GET /shows/mine` · `POST/PATCH/DELETE /shows/:id` 🔒 partner |
 | Payments | `GET /payments/config` · `POST /payments/order` 🔒 · `POST /payments/verify` 🔒 · `POST /payments/cancel` 🔒 · `POST /payments/webhook` (Razorpay, HMAC) |
-| Bookings | `GET /bookings/me` 🔒 · `GET /bookings/:id` 🔒 |
+| Bookings | `GET /bookings/me` 🔒 · `GET /bookings/:id` 🔒 · `POST /bookings/:id/cancel` 🔒 |
 | Partner | `GET /partner/stats` · `GET /partner/bookings` · `POST /partner/checkin` 🔒 partner |
 | Admin | `GET /admin/stats` · `GET /admin/users` · `PATCH /admin/users/:id/status` · `GET /admin/theatres` · `PATCH /admin/theatres/:id/status` 🔒 admin |
 
