@@ -1,5 +1,8 @@
+const Movie = require('../src/models/Movie');
+const Theatre = require('../src/models/Theatre');
+
 /**
- * Builders for valid request payloads, shared across test files.
+ * Builders for valid request payloads and seeded documents, shared across test files.
  */
 const movieBody = (overrides = {}) => ({
   title: 'Interstellar Drift',
@@ -23,4 +26,17 @@ const theatreBody = (overrides = {}) => ({
   ...overrides,
 });
 
-module.exports = { movieBody, theatreBody };
+/** A date `hours` from now, handy for future show times. */
+const hoursFromNow = (hours) => new Date(Date.now() + hours * 60 * 60 * 1000);
+
+/**
+ * Inserts an active movie and an approved theatre owned by `owner`.
+ * @param {{ _id: any }} owner
+ */
+async function seedMovieAndTheatre(owner, theatreOverrides = {}) {
+  const movie = await Movie.create(movieBody());
+  const theatre = await Theatre.create({ ...theatreBody(theatreOverrides), owner: owner._id, status: 'approved' });
+  return { movie, theatre };
+}
+
+module.exports = { movieBody, theatreBody, hoursFromNow, seedMovieAndTheatre };
