@@ -100,7 +100,7 @@ export default function BookingDetails() {
       {b.status === 'CONFIRMED' && terms && (
         <Typography.Paragraph type="secondary" className="no-print" style={{ marginTop: 12 }}>
           {terms.allowed
-            ? `Free cancellation of the ticket amount up to 24 hours before the show, 75% up to ${formatDateTime(terms.deadline)}.`
+            ? `Cancel for a full refund of the ticket price up to 24 hours before the show, or 75% until ${formatDateTime(terms.deadline)}. The convenience fee is non-refundable.`
             : terms.reason}
         </Typography.Paragraph>
       )}
