@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const morgan = require('morgan');
+const swaggerUi = require('swagger-ui-express');
 
 const env = require('./config/env');
 const { notFound, errorHandler } = require('./middleware/error');
@@ -47,6 +48,11 @@ if (!env.isTest) app.use(morgan(env.isProd ? 'combined' : 'dev'));
 app.get('/api/health', (req, res) => {
   res.json({ success: true, status: 'ok', uptime: process.uptime() });
 });
+
+/** Interactive API documentation (OpenAPI 3) and the raw spec for tooling such as Postman. */
+const openapi = require('./docs/openapi');
+app.get('/api/docs.json', (req, res) => res.json(openapi));
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openapi, { customSiteTitle: 'BookMyShow API docs' }));
 
 /** Registers booking side effects (ticket emails) on the booking service's event hooks. */
 require('./services/notification.service');

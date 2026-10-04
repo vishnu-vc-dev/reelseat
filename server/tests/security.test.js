@@ -58,3 +58,16 @@ describe('Security hardening', () => {
     }
   });
 });
+
+describe('API documentation', () => {
+  test('serves the OpenAPI spec and Swagger UI', async () => {
+    const spec = await request(app).get('/api/docs.json');
+    expect(spec.status).toBe(200);
+    expect(spec.body.openapi).toMatch(/^3\./);
+    expect(Object.keys(spec.body.paths)).toEqual(expect.arrayContaining(['/payments/verify', '/shows/{id}/hold']));
+
+    const ui = await request(app).get('/api/docs/');
+    expect(ui.status).toBe(200);
+    expect(ui.text).toContain('swagger-ui');
+  });
+});

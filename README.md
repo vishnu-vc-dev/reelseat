@@ -11,6 +11,7 @@ Built as the applied capstone project for the Scaler Neovarsity – Woolf MSc in
 | --- | --- |
 | **Live app** | _added after deployment_ |
 | **API health** | _added after deployment_ |
+| **API docs** | `/api/docs` (Swagger UI) · `/api/docs.json` (OpenAPI 3) |
 | **Stack** | React 19 · Vite · Redux Toolkit · Ant Design · Node 22 · Express 4 · MongoDB / Mongoose · Socket.IO · Razorpay · Brevo |
 
 ---
