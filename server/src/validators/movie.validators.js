@@ -9,23 +9,31 @@ const stringList = z
 
 const url = z.url('Must be a valid URL');
 
-const movieBody = z.object({
+const movieFields = {
   title: z.string().trim().min(1).max(120),
   description: z.string().trim().min(10).max(2000),
   durationMinutes: z.coerce.number().int().min(1).max(600),
-  genres: stringList.default([]),
-  languages: stringList.default([]),
+  genres: stringList,
+  languages: stringList,
   releaseDate: z.coerce.date(),
-  certificate: z.enum(CERTIFICATES).default('UA'),
+  certificate: z.enum(CERTIFICATES),
   posterUrl: url,
   trailerUrl: url.optional().or(z.literal('')),
   director: z.string().trim().max(80).optional(),
-  cast: stringList.default([]),
+  cast: stringList,
   isActive: z.boolean().optional(),
+};
+
+const createMovie = z.object({
+  ...movieFields,
+  genres: movieFields.genres.default([]),
+  languages: movieFields.languages.default([]),
+  certificate: movieFields.certificate.default('UA'),
+  cast: movieFields.cast.default([]),
 });
 
-const createMovie = movieBody;
-const updateMovie = movieBody.partial();
+/** Defaults are deliberately absent so a partial update never overwrites untouched fields. */
+const updateMovie = z.object(movieFields).partial();
 
 const listMovies = z.object({
   search: z.string().trim().max(100).optional(),

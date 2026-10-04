@@ -1,6 +1,6 @@
 const { z, email } = require('./common');
 
-const theatreBody = z.object({
+const theatreFields = {
   name: z.string().trim().min(2).max(100),
   address: z.string().trim().min(5).max(300),
   city: z.string().trim().min(2).max(60),
@@ -9,11 +9,13 @@ const theatreBody = z.object({
     .trim()
     .regex(/^[+\d][\d\s-]{7,15}$/, 'Invalid phone number'),
   email,
-  screens: z.coerce.number().int().min(1).max(20).default(1),
-});
+  screens: z.coerce.number().int().min(1).max(20),
+};
 
-const createTheatre = theatreBody;
-const updateTheatre = theatreBody.partial();
+const createTheatre = z.object({ ...theatreFields, screens: theatreFields.screens.default(1) });
+
+/** No defaults here: zod would otherwise reset `screens` on every partial update. */
+const updateTheatre = z.object(theatreFields).partial();
 
 const updateStatus = z.object({
   status: z.enum(['approved', 'blocked', 'pending']),

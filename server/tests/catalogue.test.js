@@ -31,6 +31,20 @@ describe('Movies', () => {
     expect(adminView.body.meta.total).toBe(3);
   });
 
+  test('partial update keeps fields that were not sent', async () => {
+    const { agent: admin } = await loginAs('admin');
+    const { body } = await admin.post('/api/movies').send(movieBody({ certificate: 'A', cast: ['Lead'] }));
+
+    const res = await admin.patch(`/api/movies/${body.data._id}`).send({ title: 'Renamed' });
+    expect(res.status).toBe(200);
+    expect(res.body.data).toMatchObject({
+      title: 'Renamed',
+      certificate: 'A',
+      genres: ['Sci-Fi', 'Drama'],
+      cast: ['Lead'],
+    });
+  });
+
   test('returns 400 for malformed ids and 404 for missing movies', async () => {
     expect((await request(app).get('/api/movies/not-an-id')).status).toBe(400);
     expect((await request(app).get('/api/movies/64b7f9f9f9f9f9f9f9f9f9f9')).status).toBe(404);
@@ -68,6 +82,13 @@ describe('Theatres', () => {
     const { agent: other } = await loginAs('partner');
     const res = await other.patch(`/api/theatres/${body.data._id}`).send({ name: 'Hijacked' });
     expect(res.status).toBe(403);
+  });
+
+  test('partial theatre update keeps the screen count', async () => {
+    const { agent: partner } = await loginAs('partner');
+    const { body } = await partner.post('/api/theatres').send(theatreBody({ screens: 4 }));
+    const res = await partner.patch(`/api/theatres/${body.data._id}`).send({ phone: '+91 9000000000' });
+    expect(res.body.data.screens).toBe(4);
   });
 
   test('partners cannot approve their own theatre', async () => {
