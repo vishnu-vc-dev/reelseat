@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="400" height="600" role="img" aria-label="Echoes of Dawn poster">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#ee9ca7"/><stop offset="1" stop-color="#ffdde1"/></linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.85"/></linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#bg)"/>
+  <path d="M0 200 Q100 170 200 200 T400 200" fill="none" stroke="#6d2e46" stroke-opacity="0.15" stroke-width="2"/><path d="M0 228 Q100 198 200 228 T400 228" fill="none" stroke="#6d2e46" stroke-opacity="0.2" stroke-width="2"/><path d="M0 256 Q100 226 200 256 T400 256" fill="none" stroke="#6d2e46" stroke-opacity="0.25" stroke-width="2"/><path d="M0 284 Q100 254 200 284 T400 284" fill="none" stroke="#6d2e46" stroke-opacity="0.30000000000000004" stroke-width="2"/><path d="M0 312 Q100 282 200 312 T400 312" fill="none" stroke="#6d2e46" stroke-opacity="0.35" stroke-width="2"/><path d="M0 340 Q100 310 200 340 T400 340" fill="none" stroke="#6d2e46" stroke-opacity="0.4" stroke-width="2"/><path d="M0 368 Q100 338 200 368 T400 368" fill="none" stroke="#6d2e46" stroke-opacity="0.45000000000000007" stroke-width="2"/><path d="M0 396 Q100 366 200 396 T400 396" fill="none" stroke="#6d2e46" stroke-opacity="0.5" stroke-width="2"/>
+  <rect width="400" height="600" fill="url(#fade)"/>
+  <text x="200" y="446" text-anchor="middle" font-family="Impact, 'Arial Black', sans-serif" font-size="44" fill="#ffffff" letter-spacing="2">ECHOES OF</text><text x="200" y="494" text-anchor="middle" font-family="Impact, 'Arial Black', sans-serif" font-size="44" fill="#ffffff" letter-spacing="2">DAWN</text>
+  <text x="200" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#ffe4ea" letter-spacing="1">SAME CAFÉ. DIFFERENT TIME.</text>
+</svg>

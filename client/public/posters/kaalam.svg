@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" width="400" height="600" role="img" aria-label="Kaalam poster">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0" stop-color="#200122"/><stop offset="1" stop-color="#6f0000"/></linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0.45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.85"/></linearGradient>
+  </defs>
+  <rect width="400" height="600" fill="url(#bg)"/>
+  <circle cx="200" cy="230" r="30" fill="none" stroke="#ff9a3c" stroke-opacity="0.7" stroke-width="2"/><circle cx="200" cy="230" r="56" fill="none" stroke="#ff9a3c" stroke-opacity="0.62" stroke-width="2"/><circle cx="200" cy="230" r="82" fill="none" stroke="#ff9a3c" stroke-opacity="0.5399999999999999" stroke-width="2"/><circle cx="200" cy="230" r="108" fill="none" stroke="#ff9a3c" stroke-opacity="0.45999999999999996" stroke-width="2"/><circle cx="200" cy="230" r="134" fill="none" stroke="#ff9a3c" stroke-opacity="0.37999999999999995" stroke-width="2"/><circle cx="200" cy="230" r="160" fill="none" stroke="#ff9a3c" stroke-opacity="0.29999999999999993" stroke-width="2"/><circle cx="200" cy="230" r="186" fill="none" stroke="#ff9a3c" stroke-opacity="0.21999999999999997" stroke-width="2"/>
+  <rect width="400" height="600" fill="url(#fade)"/>
+  <text x="200" y="470" text-anchor="middle" font-family="Impact, 'Arial Black', sans-serif" font-size="56" fill="#ffffff" letter-spacing="2">KAALAM</text>
+  <text x="200" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" fill="#ff9a3c" letter-spacing="1">YOUR FUTURE IS CALLING.</text>
+</svg>
