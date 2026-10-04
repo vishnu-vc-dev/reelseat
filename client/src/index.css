@@ -888,3 +888,101 @@ img {
   font-size: 9px;
   padding: 4px;
 }
+
+/** ---------- Ratings & reviews ---------- */
+.movie-card-rating {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 13px;
+}
+
+.movie-card-rating .anticon,
+.movie-hero-rating .anticon {
+  color: var(--brand);
+}
+
+.movie-hero-rating {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.movie-hero-rating span {
+  font-size: 13px;
+  font-weight: 400;
+  color: #c9cbd6;
+}
+
+.reviews-card {
+  margin-top: 16px;
+}
+
+.reviews-summary {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.reviews-score {
+  text-align: center;
+  min-width: 120px;
+}
+
+.reviews-average {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.reviews-histogram {
+  flex: 1;
+  min-width: 180px;
+}
+
+.reviews-histogram-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 24px;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.review {
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+
+.review p {
+  margin: 6px 0 0;
+}
+
+.review-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.review-stars.ant-rate,
+.review-head .ant-rate {
+  font-size: 13px;
+}
+
+.own-review {
+  background: #fff6f8;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 12px;
+}
+
+.review-form {
+  margin-bottom: 16px;
+}

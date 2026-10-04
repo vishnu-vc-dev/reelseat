@@ -23,6 +23,9 @@ export const movieApi = {
   create: (body) => http.post('/movies', body),
   update: (id, body) => http.patch(`/movies/${id}`, body),
   remove: (id) => http.delete(`/movies/${id}`),
+  reviews: (id, params) => http.get(`/movies/${id}/reviews`, { params }),
+  saveReview: (id, body) => http.put(`/movies/${id}/reviews`, body),
+  deleteReview: (id) => http.delete(`/movies/${id}/reviews`),
 };
 
 export const theatreApi = {

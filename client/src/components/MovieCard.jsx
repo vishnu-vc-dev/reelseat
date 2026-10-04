@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Tag } from 'antd';
+import { StarFilled } from '@ant-design/icons';
 import Poster from './Poster';
 import { formatDate } from '../utils/format';
 
@@ -13,6 +14,11 @@ export default function MovieCard({ movie, upcoming = false }) {
       <div className="movie-card-poster">
         <Poster src={movie.posterUrl} title={movie.title} />
         <Tag className="movie-card-cert">{movie.certificate}</Tag>
+        {movie.ratingCount > 0 && (
+          <span className="movie-card-rating">
+            <StarFilled /> {movie.ratingAverage.toFixed(1)} <small>({movie.ratingCount})</small>
+          </span>
+        )}
       </div>
       <div className="movie-card-body">
         <div className="movie-card-title">{movie.title}</div>

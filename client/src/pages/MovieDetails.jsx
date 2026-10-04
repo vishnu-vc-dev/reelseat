@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Alert, Button, Card, Empty, Result, Select, Skeleton, Tag, Tooltip, Typography } from 'antd';
-import { ClockCircleOutlined, EnvironmentOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { ClockCircleOutlined, EnvironmentOutlined, PlayCircleOutlined, StarFilled } from '@ant-design/icons';
 import { movieApi, showApi } from '../api';
 import useAsync from '../hooks/useAsync';
 import Poster from '../components/Poster';
+import Reviews from '../components/Reviews';
 import { selectCity } from '../store/uiSlice';
 import { dayjs, formatDate, formatDuration, formatINR, formatTime, ist, istDateString } from '../utils/format';
 
@@ -59,6 +60,11 @@ export default function MovieDetails() {
             <Typography.Title level={1} className="movie-hero-title">
               {m.title}
             </Typography.Title>
+            {m.ratingCount > 0 && (
+              <div className="movie-hero-rating">
+                <StarFilled /> {m.ratingAverage.toFixed(1)}/5 <span>· {m.ratingCount} rating{m.ratingCount === 1 ? '' : 's'}</span>
+              </div>
+            )}
             <div className="movie-hero-tags">
               {m.languages.map((l) => (
                 <Tag key={l}>{l}</Tag>
@@ -91,6 +97,7 @@ export default function MovieDetails() {
               <strong>Cast:</strong> {m.cast.join(', ')}
             </Typography.Paragraph>
           )}
+          {!upcoming && <Reviews movieId={id} onSummaryChange={movie.reload} />}
         </div>
 
         <Card className="showtimes-card" title="Book tickets">
