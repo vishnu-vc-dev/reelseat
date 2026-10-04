@@ -2,7 +2,7 @@ import { Tag } from 'antd';
 import Poster from './Poster';
 import { formatDateTime, formatINR } from '../utils/format';
 
-const STATUS_COLOR = { CONFIRMED: 'green', REFUNDED: 'orange', FAILED: 'red', PENDING: 'blue' };
+const STATUS_COLOR = { CONFIRMED: 'green', REFUNDED: 'orange', CANCELLED: 'default', FAILED: 'red', PENDING: 'blue' };
 
 /**
  * Printable e-ticket: movie and venue on the left, QR code and booking id on

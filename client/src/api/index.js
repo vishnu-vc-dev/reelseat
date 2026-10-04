@@ -55,6 +55,7 @@ export const paymentApi = {
 export const bookingApi = {
   mine: () => http.get('/bookings/me'),
   get: (id) => http.get(`/bookings/${id}`),
+  cancel: (id) => http.post(`/bookings/${id}/cancel`),
 };
 
 export const partnerApi = {
