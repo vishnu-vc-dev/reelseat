@@ -6,6 +6,7 @@ const morgan = require('morgan');
 
 const env = require('./config/env');
 const { notFound, errorHandler } = require('./middleware/error');
+const { securityHeaders, sanitize, apiLimiter } = require('./middleware/security');
 
 /**
  * Express application.
@@ -17,6 +18,8 @@ const app = express();
 /** Behind Render's proxy the real client IP arrives in X-Forwarded-For; rate limiting depends on it. */
 if (env.trustProxy) app.set('trust proxy', env.trustProxy);
 
+app.disable('x-powered-by');
+app.use(securityHeaders);
 app.use(
   cors({
     origin: env.clientUrls,
@@ -24,6 +27,7 @@ app.use(
   }),
 );
 app.use(compression());
+
 /**
  * Razorpay webhooks are verified against the exact raw bytes, so this route
  * must be registered before express.json() consumes and re-serialises the body.
@@ -37,6 +41,7 @@ app.post(
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: false, limit: '10kb' }));
 app.use(cookieParser());
+app.use(sanitize);
 if (!env.isTest) app.use(morgan(env.isProd ? 'combined' : 'dev'));
 
 app.get('/api/health', (req, res) => {
@@ -46,7 +51,7 @@ app.get('/api/health', (req, res) => {
 /** Registers booking side effects (ticket emails) on the booking service's event hooks. */
 require('./services/notification.service');
 
-app.use('/api', require('./routes'));
+app.use('/api', apiLimiter, require('./routes'));
 
 app.use(notFound);
 app.use(errorHandler);
