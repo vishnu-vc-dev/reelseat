@@ -7,11 +7,13 @@ const mongoose = require('mongoose');
  *      │                                 │
  *      └──(payment failed)──► FAILED     └──(seats lost in a race)──► REFUNDED / FAILED
  *
+ *   CONFIRMED ──(customer cancels before the cut-off)──► CANCELLED (partial or full refund)
+ *
  * PROCESSING is a short-lived claim that makes confirmation idempotent: the
  * client callback and the Razorpay webhook may both arrive, but only the one
  * that flips PENDING → PROCESSING continues.
  */
-const BOOKING_STATUS = ['PENDING', 'PROCESSING', 'CONFIRMED', 'FAILED', 'REFUNDED'];
+const BOOKING_STATUS = ['PENDING', 'PROCESSING', 'CONFIRMED', 'FAILED', 'REFUNDED', 'CANCELLED'];
 
 const lineItemSchema = new mongoose.Schema(
   {
@@ -48,6 +50,9 @@ const bookingSchema = new mongoose.Schema(
     checkedInAt: Date,
     emailSentAt: Date,
     failureReason: String,
+    cancelledAt: Date,
+    /** Amount returned to the customer when they cancel; the convenience fee is not refundable. */
+    refundAmount: Number,
   },
   { timestamps: true },
 );
