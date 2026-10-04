@@ -33,6 +33,8 @@ app.get('/api/health', (req, res) => {
   res.json({ success: true, status: 'ok', uptime: process.uptime() });
 });
 
+app.use('/api', require('./routes'));
+
 app.use(notFound);
 app.use(errorHandler);
 
