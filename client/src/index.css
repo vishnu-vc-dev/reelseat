@@ -823,3 +823,30 @@ img {
     border: 1px solid #ccc;
   }
 }
+
+/** ---------- Dashboards ---------- */
+.tab-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tab-toolbar > :only-child {
+  margin-left: auto;
+}
+
+.stat-card .ant-statistic-content {
+  font-size: 22px;
+}
+
+.chart-box {
+  height: 260px;
+}
+
+.layout-row {
+  display: flex;
+  margin-bottom: 4px;
+}

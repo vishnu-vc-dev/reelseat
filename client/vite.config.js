@@ -15,4 +15,12 @@ export default defineConfig({
       '/socket.io': { target: 'http://localhost:8080', ws: true, changeOrigin: true },
     },
   },
+  build: {
+    /**
+     * The dashboards bundle the charting library (~200 kB gzipped). They are
+     * lazy-loaded routes used only by partners and admins, so customers never
+     * download that chunk; the default 500 kB warning is raised accordingly.
+     */
+    chunkSizeWarningLimit: 800,
+  },
 });
