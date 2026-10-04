@@ -18,6 +18,7 @@ const MyBookings = lazy(() => import('./pages/MyBookings'));
 const Profile = lazy(() => import('./pages/Profile'));
 const ForgotPassword = lazy(() => import('./pages/auth/ForgotPassword'));
 const PartnerDashboard = lazy(() => import('./pages/partner/PartnerDashboard'));
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const Login = lazy(() => import('./pages/auth/Login'));
 const Register = lazy(() => import('./pages/auth/Register'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -49,6 +50,10 @@ export default function App() {
 
           <Route element={<ProtectedRoute roles={['partner', 'admin']} />}>
             <Route path="partner" element={<PartnerDashboard />} />
+          </Route>
+
+          <Route element={<ProtectedRoute roles={['admin']} />}>
+            <Route path="admin" element={<AdminDashboard />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />

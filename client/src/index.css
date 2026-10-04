@@ -850,3 +850,11 @@ img {
   display: flex;
   margin-bottom: 4px;
 }
+
+.table-thumb {
+  width: 36px;
+  height: 54px;
+  border-radius: 4px;
+  font-size: 9px;
+  padding: 4px;
+}
