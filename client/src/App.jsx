@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import AppLayout from './components/AppLayout';
 import PageLoader from './components/PageLoader';
+import ProtectedRoute from './components/ProtectedRoute';
 import { fetchCurrentUser } from './store/authSlice';
 
 /**
@@ -11,6 +12,9 @@ import { fetchCurrentUser } from './store/authSlice';
  */
 const Home = lazy(() => import('./pages/Home'));
 const MovieDetails = lazy(() => import('./pages/MovieDetails'));
+const SeatSelection = lazy(() => import('./pages/SeatSelection'));
+const BookingDetails = lazy(() => import('./pages/BookingDetails'));
+const MyBookings = lazy(() => import('./pages/MyBookings'));
 const Login = lazy(() => import('./pages/auth/Login'));
 const Register = lazy(() => import('./pages/auth/Register'));
 const NotFound = lazy(() => import('./pages/NotFound'));
@@ -31,6 +35,12 @@ export default function App() {
           <Route path="movies/:id" element={<MovieDetails />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="shows/:id" element={<SeatSelection />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="bookings" element={<MyBookings />} />
+            <Route path="bookings/:id" element={<BookingDetails />} />
+          </Route>
 
           <Route path="*" element={<NotFound />} />
         </Route>
