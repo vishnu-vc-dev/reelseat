@@ -10,6 +10,7 @@ const theatreSchemas = require('../validators/theatre.validators');
 /** Every route in this file is admin-only. */
 router.use(protect, authorize('admin'));
 
+router.get('/stats', adminCtrl.stats);
 router.get(
   '/users',
   validate({

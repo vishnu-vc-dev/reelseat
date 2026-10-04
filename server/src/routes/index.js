@@ -10,6 +10,7 @@ router.use('/theatres', require('./theatre.routes'));
 router.use('/shows', require('./show.routes'));
 router.use('/payments', require('./payment.routes'));
 router.use('/bookings', require('./booking.routes'));
+router.use('/partner', require('./partner.routes'));
 router.use('/admin', require('./admin.routes'));
 
 module.exports = router;
